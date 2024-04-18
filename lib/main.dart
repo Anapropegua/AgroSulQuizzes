@@ -1,7 +1,11 @@
+import 'package:feedback/src/core/inject.dart';
 import 'package:feedback/src/routes/router.dart';
+import 'package:feedback/src/core/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  injectDependencies();
   runApp(const MyApp());
 }
 
@@ -12,16 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Feedback',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.blue,
-          foregroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
-      ),
-      onGenerateRoute: browserRouter,
-      initialRoute: routes['Home']!,
+      theme: theme,
+      routes: Routes.routes,
+      initialRoute: Routes.initialRoute,
       debugShowCheckedModeBanner: false,
     );
   }

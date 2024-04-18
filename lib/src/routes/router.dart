@@ -1,23 +1,34 @@
+import 'package:feedback/src/bloc/questions_bloc.dart';
+import 'package:feedback/src/core/inject.dart';
+import 'package:feedback/src/screens/home_screen.dart';
+import 'package:feedback/src/screens/question_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../screens/example.dart';
-import '../screens/home.dart';
+class Routes {
+  static const String home = '/';
+  static const String productorQuestions = '/productor-questions';
+  static const String participantQuestions = '/participant-questions';
 
-Map<String, String> routes = {
-  'Home': '/',
-  'Example': '/example',
-};
+  static bool falsePredicate(Route<dynamic> route) => false;
 
-Route browserRouter(RouteSettings settings) {
-  switch (settings.name) {
-    case '/':
-      return MaterialPageRoute(
-          builder: (context) => const Home());
-    case '/example':
-      return MaterialPageRoute(
-          builder: (context) => const Example());
-    default:
-      return MaterialPageRoute(
-          builder: (context) => const Home());
-  }
+  static String get initialRoute => home;
+
+  static Map<String, Widget Function(BuildContext)> routes = {
+    home: (context) => const HomeScreen(),
+    productorQuestions: (context) => BlocProvider(
+          create: (context) => QuestionBloc(
+            questionType: QuestionType.productor,
+            questionService: getIt(),
+          ),
+          child: const QuestionScreen(),
+        ),
+    participantQuestions: (context) => BlocProvider(
+          create: (context) => QuestionBloc(
+            questionType: QuestionType.participant,
+            questionService: getIt(),
+          ),
+          child: const QuestionScreen(),
+        ),
+  };
 }
