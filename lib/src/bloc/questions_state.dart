@@ -48,7 +48,7 @@ class QuestionState extends Equatable {
       ];
 
   List<QuestionEntity> get questions => questionType == QuestionType.productor
-      ? productorQuestions
+      ? farmerOpenEndedQuestions
       : participantQuestions;
   int get totalQuestions => questions.length;
 

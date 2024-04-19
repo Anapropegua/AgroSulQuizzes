@@ -9,6 +9,7 @@ class QuestionServiceImpl implements QuestionService {
   }) async {
     try{
       // TODO: call to api
+      print(answers);
       return const Right({'message': 'Answers submitted successfully'});
     }  catch (e) {
       return Left(QuestionException('Erro ao submeter respostas.'));
