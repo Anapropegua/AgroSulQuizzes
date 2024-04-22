@@ -16,17 +16,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('AgroSul',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.primary,
-              fontFamily: GoogleFonts.baloo2().fontFamily,
-            )),
-        centerTitle: true,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('AgroSul',
+                style: TextStyle(
+                  fontSize: 33,
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.primary,
+                  fontFamily: GoogleFonts.baloo2().fontFamily,
+                )),
+            Text('Feedback',
+                style:
+                    TextStyle(fontSize: 20, color: theme.colorScheme.secondary)),
+          ],
+        ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(

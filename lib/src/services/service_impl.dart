@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:feedback/src/core/exception.dart';
 import 'package:feedback/src/services/service.dart';
 import 'package:feedback/src/core/access_api.dart';
-import 'dart:convert';
 import 'package:hasura_connect/hasura_connect.dart';
 
 final HasuraConnect hasuraConnect = HasuraConnect(
