@@ -1,5 +1,8 @@
 import 'package:feedback/src/routes/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:feedback/src/core/theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,50 +15,115 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: const QuizAppBar(title: "Início"),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).pushNamed(
-                Routes.productorQuestionsOpen,
-              ),
-              child: const Text(
-                'Formulário Produtor [Aberto]',
-              ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).pushNamed(
-                Routes.productorQuestionsClose,
-              ),
-              child: const Text(
-                'Formulário produtor [Fechado]',
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+           SizedBox(
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: SvgPicture.asset(
+                      'assets/images/image1.svg',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).pushNamed(
-                Routes.participantQuestionsOpen,
-              ),
-              child: const Text(
-                'Formulário Participante [Aberto]',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildColumn(
+                  title: 'Perguntas Fechadas',
+                  onPressed1: () => Navigator.of(context).pushNamed(
+                    Routes.productorQuestionsClose,
+                  ),
+                  onPressed2: () => Navigator.of(context).pushNamed(
+                    Routes.participantQuestionsClose,
+                  ),
+                ),
+                buildColumn(
+                  title: 'Perguntas Abertas',
+                  onPressed1: () => Navigator.of(context).pushNamed(
+                    Routes.productorQuestionsOpen,
+                  ),
+                  onPressed2: () => Navigator.of(context).pushNamed(
+                    Routes.participantQuestionsOpen,
+                  ),
+                ),
+              ],
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildColumn({
+    required String title,
+    required VoidCallback onPressed1,
+    required VoidCallback onPressed2,
+  }) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: theme.colorScheme.primary,
+            fontFamily:
+                GoogleFonts.baloo2().fontFamily, // Aplicando a mesma fonte
+          ),
+        ),
+        const SizedBox(height: 20),
+        buildButtonWithIcon(text: 'Produtor', onPressed: onPressed1),
+        buildButtonWithIcon(text: 'Participante', onPressed: onPressed2),
+      ],
+    );
+  }
+
+  Widget buildButtonWithIcon({
+    required String text,
+    required VoidCallback onPressed,
+  }) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.49,
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: ElevatedButton.icon(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: theme.colorScheme.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          icon: const Icon(Icons.arrow_forward_ios),
+          label: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.onPrimary,
+                fontFamily:
+                    GoogleFonts.baloo2().fontFamily, // Aplicando a mesma fonte
               ),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).pushNamed(
-                Routes.participantQuestionsClose,
-              ),
-              child: const Text(
-                'Formulário Participante [Fechado]',
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
+  
+
 }
