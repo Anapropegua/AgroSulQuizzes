@@ -9,10 +9,14 @@ part 'questions_state.dart';
 
 class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
   final QuestionType questionType;
+  final Question question;
   final QuestionService questionService;
 
-  QuestionBloc({required this.questionType, required this.questionService})
-      : super(QuestionState(questionType: questionType)) {
+  QuestionBloc(
+      {required this.questionType,
+      required this.questionService,
+      required this.question})
+      : super(QuestionState(questionType: questionType, question: question)) {
     on<NextQuestionEvent>(_onNextQuestion);
     on<PreviousQuestionEvent>(_onPreviousQuestion);
     on<ClearAnswersEvent>(_onClearAnswers);
@@ -66,8 +70,11 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
     final currentState = state;
     emit(currentState.copyWith(status: QuestionStatus.loading));
 
-    var respose =
-        await questionService.submitAnswers(answers: currentState.answers);
+    var respose = await questionService.submitAnswers(
+      answers: currentState.answers,
+      typeQuestion: questionType.toString(),
+      formQuestion: question.toString(),
+    );
 
     respose.fold(
       (error) => emit(

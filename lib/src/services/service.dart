@@ -4,5 +4,7 @@ import 'package:feedback/src/core/exception.dart';
 abstract class QuestionService {
   Future<Either<QuestionException, Map<String, dynamic>>> submitAnswers({
     required Map<int, String> answers,
+    required String typeQuestion,
+    required String formQuestion,
   });
 }

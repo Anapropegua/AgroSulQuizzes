@@ -4,6 +4,8 @@ enum QuestionStatus { initial, loading, success, error }
 
 enum QuestionType { productor, participant }
 
+enum Question { openEnded, multipleChoice }
+
 class QuestionState extends Equatable {
   final QuestionStatus status;
   final int currentQuestionIndex;
@@ -11,6 +13,7 @@ class QuestionState extends Equatable {
   final Map<int, String> answers;
   final QuestionType questionType;
   final String errorMessage;
+  final Question question;
 
   const QuestionState({
     this.status = QuestionStatus.initial,
@@ -19,6 +22,7 @@ class QuestionState extends Equatable {
     required this.questionType,
     this.errorMessage = "",
     this.answers = const {},
+    required this.question,
   });
 
   QuestionState copyWith({
@@ -35,6 +39,7 @@ class QuestionState extends Equatable {
         errorMessage: errorMessage ?? this.errorMessage,
         currentAnswerText: currentAnswerText ?? this.currentAnswerText,
         answers: answers ?? this.answers,
+        question: question,
       );
 
   @override
@@ -45,11 +50,25 @@ class QuestionState extends Equatable {
         answers,
         errorMessage,
         currentAnswerText,
+        question,
       ];
 
-  List<QuestionEntity> get questions => questionType == QuestionType.productor
-      ? farmerOpenEndedQuestions
-      : participantQuestions;
+  List<QuestionEntity> get questions {
+    if (questionType == QuestionType.productor) {
+      if (question == Question.openEnded) {
+        return farmerOpenEndedQuestions;
+      } else {
+        return farmerClosedEndedQuestions;
+      }
+    } else {
+      if (question == Question.openEnded) {
+        return participantOpenEndedQuestions;
+      } else {
+        return participantQuestions;
+      }
+    }
+  }
+
   int get totalQuestions => questions.length;
 
   QuestionEntity get currentQuestion => questions.firstWhere(

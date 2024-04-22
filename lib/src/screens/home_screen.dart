@@ -20,19 +20,37 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             ElevatedButton(
               onPressed: () => Navigator.of(context).pushNamed(
-                Routes.productorQuestions,
+                Routes.productorQuestionsOpen,
               ),
               child: const Text(
-                'Formulário Produtor',
+                'Formulário Produtor [Aberto]',
               ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => Navigator.of(context).pushNamed(
-                Routes.participantQuestions,
+                Routes.productorQuestionsClose,
               ),
               child: const Text(
-                'Formulário Participante',
+                'Formulário produtor [Fechado]',
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pushNamed(
+                Routes.participantQuestionsOpen,
+              ),
+              child: const Text(
+                'Formulário Participante [Aberto]',
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pushNamed(
+                Routes.participantQuestionsClose,
+              ),
+              child: const Text(
+                'Formulário Participante [Fechado]',
               ),
             ),
           ],
