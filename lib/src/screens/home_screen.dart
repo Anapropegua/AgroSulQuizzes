@@ -15,48 +15,58 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('AgroSul',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: theme.colorScheme.primary,
+              fontFamily: GoogleFonts.baloo2().fontFamily,
+            )),
+        centerTitle: true,
+      ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         children: [
-           SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: SvgPicture.asset(
-                      'assets/images/image1.svg',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildColumn(
-                  title: 'Perguntas Fechadas',
-                  onPressed1: () => Navigator.of(context).pushNamed(
-                    Routes.productorQuestionsClose,
-                  ),
-                  onPressed2: () => Navigator.of(context).pushNamed(
-                    Routes.participantQuestionsClose,
-                  ),
-                ),
-                buildColumn(
-                  title: 'Perguntas Abertas',
-                  onPressed1: () => Navigator.of(context).pushNamed(
-                    Routes.productorQuestionsOpen,
-                  ),
-                  onPressed2: () => Navigator.of(context).pushNamed(
-                    Routes.participantQuestionsOpen,
+                const SizedBox(height: 10),
+                Expanded(
+                  child: SvgPicture.asset(
+                    'assets/images/image1.svg',
+                    fit: BoxFit.contain,
                   ),
                 ),
               ],
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              buildColumn(
+                title: 'Perguntas Fechadas',
+                onPressed1: () => Navigator.of(context).pushNamed(
+                  Routes.productorQuestionsClose,
+                ),
+                onPressed2: () => Navigator.of(context).pushNamed(
+                  Routes.participantQuestionsClose,
+                ),
+              ),
+              buildColumn(
+                title: 'Perguntas Abertas',
+                onPressed1: () => Navigator.of(context).pushNamed(
+                  Routes.productorQuestionsOpen,
+                ),
+                onPressed2: () => Navigator.of(context).pushNamed(
+                  Routes.participantQuestionsOpen,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -124,6 +134,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-  
-
 }
