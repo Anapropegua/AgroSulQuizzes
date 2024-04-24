@@ -75,6 +75,15 @@ class _QuestionScreenState extends State<QuestionScreen> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
+                  if (answerController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Resposta não pode ser vazia!"),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                    return;
+                  }
                   if (state.currentQuestion.alternatives.isEmpty) {
                     context.read<QuestionBloc>().add(
                           SetAnswerQuestionEvent(
