@@ -25,8 +25,27 @@ class _QuestionScreenState extends State<QuestionScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<QuestionBloc, QuestionState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         answerController.text = state.currentAnswer;
+        if (state.status == QuestionStatus.error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+        if (state.status == QuestionStatus.success) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Dados enviados com sucesso!"),
+              backgroundColor: Colors.green,
+            ),
+          );
+          await Future.delayed(const Duration(seconds: 1), () {
+            Navigator.of(context).pop();
+          });
+        }
       },
       builder: (context, state) {
         return Scaffold(

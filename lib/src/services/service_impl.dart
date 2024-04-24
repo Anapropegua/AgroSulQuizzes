@@ -29,9 +29,13 @@ class QuestionServiceImpl implements QuestionService {
       """;
 
       await hasuraConnect.mutation(operationsDoc);
-      return const Right({'message': 'Answers submitted successfully'});
+      return const Right({'message': 'Dados enviados com sucesso!'});
     } catch (e) {
-      return Left(QuestionException('Erro ao submeter respostas.'));
+      return Left(
+        QuestionException(
+          'Houve um erro ao enviar os dados. Verifique a conexão e tente novamente.',
+        ),
+      );
     }
   }
 }
