@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:feedback/src/core/exception.dart';
 import 'package:feedback/src/services/service.dart';
 import 'package:feedback/src/core/access_api.dart';
-import 'dart:convert';
 import 'package:hasura_connect/hasura_connect.dart';
 
 final HasuraConnect hasuraConnect = HasuraConnect(
@@ -22,20 +21,14 @@ class QuestionServiceImpl implements QuestionService {
           answers.map((key, value) => MapEntry(key.toString(), value));
 
       String operationsDoc = """
-  mutation answer(\$type: String = "$formQuestion", \$form: String = "$typeQuestion", \$answers: json = "$stringKeyAnswers") {
-    insert_answer(objects: {type: \$type, form: \$form, answers: \$answers}) {
-      affected_rows
-    }
-  }
-""";
+        mutation answer(\$type: String = "$formQuestion", \$form: String = "$typeQuestion", \$answers: json = "$stringKeyAnswers") {
+          insert_answer(objects: {type: \$type, form: \$form, answers: \$answers}) {
+            affected_rows
+          }
+        }
+      """;
 
-      try {
-        final response = await hasuraConnect.mutation(operationsDoc);
-        print(response);
-      } catch (e) {
-        print(e);
-      }
-
+      await hasuraConnect.mutation(operationsDoc);
       return const Right({'message': 'Answers submitted successfully'});
     } catch (e) {
       return Left(QuestionException('Erro ao submeter respostas.'));
