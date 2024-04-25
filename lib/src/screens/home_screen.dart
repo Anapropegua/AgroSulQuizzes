@@ -30,8 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontFamily: GoogleFonts.baloo2().fontFamily,
                 )),
             Text('Feedback',
-                style:
-                    TextStyle(fontSize: 20, color: theme.colorScheme.secondary)),
+                style: TextStyle(
+                    fontSize: 20, color: theme.colorScheme.secondary)),
           ],
         ),
       ),
@@ -72,7 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   Routes.productorQuestionsOpen,
                 ),
                 onPressed2: () async {
-                  final result = await getIt<QuestionService>().submitAnswersOffline();
+                  final result =
+                      await getIt<QuestionService>().submitAnswersOffline();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -112,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SizedBox(height: 20),
         buildButtonWithIcon(text: 'Produtor', onPressed: onPressed1),
-        buildButtonWithIcon(text: 'Participante', onPressed: onPressed2),
+        buildButtonWithIcon(text: 'Salvar', onPressed: onPressed2),
       ],
     );
   }
