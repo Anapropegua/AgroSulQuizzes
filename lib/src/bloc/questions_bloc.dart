@@ -3,6 +3,7 @@ import 'package:feedback/src/core/constants.dart';
 import 'package:feedback/src/models/entities/question_entity.dart';
 import 'package:feedback/src/services/service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:connectivity/connectivity.dart';
 
 part 'questions_event.dart';
 part 'questions_state.dart';
@@ -70,20 +71,45 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
     final currentState = state;
     emit(currentState.copyWith(status: QuestionStatus.loading));
 
-    var respose = await questionService.submitAnswers(
-      answers: currentState.answers,
-      typeQuestion: questionType.toString(),
-      formQuestion: question.toString(),
-    );
+    var connectivityResult = await (Connectivity().checkConnectivity());
 
-    respose.fold(
-      (error) => emit(
-        currentState.copyWith(
-          status: QuestionStatus.error,
-          errorMessage: error.message,
-        ),
-      ),
-      (data) => emit(currentState.copyWith(status: QuestionStatus.success)),
-    );
+    if (connectivityResult == ConnectivityResult.none) {
+      var respose = await questionService.storageAnswersOffline(
+        answers: currentState.answers,
+        typeQuestion: questionType.toString(),
+        formQuestion: question.toString(),
+      );
+
+      respose.fold(
+            (error) =>
+            emit(
+              currentState.copyWith(
+                status: QuestionStatus.error,
+                errorMessage: error.message,
+              ),
+            ),
+            (data) =>
+            emit(currentState.copyWith(status: QuestionStatus.success)),
+      );
+      return;
+    } else {
+      var respose = await questionService.submitAnswers(
+        answers: currentState.answers,
+        typeQuestion: questionType.toString(),
+        formQuestion: question.toString(),
+      );
+
+      respose.fold(
+            (error) =>
+            emit(
+              currentState.copyWith(
+                status: QuestionStatus.error,
+                errorMessage: error.message,
+              ),
+            ),
+            (data) =>
+            emit(currentState.copyWith(status: QuestionStatus.success)),
+      );
+    }
   }
 }

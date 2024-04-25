@@ -4,6 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:feedback/src/core/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../core/inject.dart';
+import '../services/service.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -68,9 +71,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed1: () => Navigator.of(context).pushNamed(
                   Routes.productorQuestionsOpen,
                 ),
-                onPressed2: () => Navigator.of(context).pushNamed(
-                  Routes.participantQuestionsOpen,
-                ),
+                onPressed2: () async {
+                  final result = await getIt<QuestionService>().submitAnswersOffline();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        result.fold(
+                          (l) => l.message,
+                          (r) => r['message'],
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),
