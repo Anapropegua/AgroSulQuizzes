@@ -56,13 +56,13 @@ class QuestionState extends Equatable {
   List<QuestionEntity> get questions {
     if (questionType == QuestionType.productor) {
       if (question == Question.openEnded) {
-        return farmerOpenEndedQuestions;
+        return farmerQuestions;
       } else {
-        return farmerClosedEndedQuestions;
+        return farmerQuestions;
       }
     } else {
       if (question == Question.openEnded) {
-        return participantOpenEndedQuestions;
+        return participantQuestions;
       } else {
         return participantQuestions;
       }
