@@ -3,6 +3,9 @@ import 'package:feedback/src/core/exception.dart';
 import 'package:feedback/src/services/service.dart';
 import 'package:feedback/src/core/access_api.dart';
 import 'package:hasura_connect/hasura_connect.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:connectivity/connectivity.dart';
+import 'dart:convert';
 
 final HasuraConnect hasuraConnect = HasuraConnect(
   url,
@@ -34,6 +37,94 @@ class QuestionServiceImpl implements QuestionService {
       return Left(
         QuestionException(
           'Houve um erro ao enviar os dados. Verifique a conexão e tente novamente.',
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<QuestionException, Map<String, dynamic>>> submitAnswersOffline() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<Map<String, dynamic>> savedForms = prefs
+            .getStringList('forms')
+            ?.map((e) => jsonDecode(e))
+            .cast<Map<String, dynamic>>()
+            .toList() ??
+        [];
+
+    if (connectivityResult == ConnectivityResult.wifi &&
+        savedForms.isNotEmpty) {
+      for (var form in savedForms) {
+        try {
+          String operationsDoc = """
+            mutation answer(\$type: String = "${form['form']}", \$form: String = "${form['type']}", \$answers: json = "${form['answers']}") {
+              insert_answer(objects: {type: \$type, form: \$form, answers: \$answers}) {
+                affected_rows
+              }
+            }
+          """;
+
+          await hasuraConnect.mutation(operationsDoc);
+        } catch (e) {
+          return Left(
+            QuestionException(
+              'Houve um erro ao enviar os dados. Verifique a conexão e tente novamente.',
+            ),
+          );
+        }
+      }
+
+      await prefs.remove('forms');
+      return const Right({'message': 'Formulários enviados com sucesso!'});
+    } else {
+      if (connectivityResult == ConnectivityResult.none) {
+        return Left(
+          QuestionException(
+            'Houve um erro ao enviar os dados. Verifique a conexão e tente novamente.',
+          ),
+        );
+      } else {
+        return const Right({'message': 'Não há formulários para enviar!'});
+      }
+    }
+  }
+
+  @override
+  Future<Either<QuestionException, Map<String, dynamic>>> storageAnswersOffline({
+    required Map<int, String> answers,
+    required String typeQuestion,
+    required String formQuestion,
+  }) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      List<Map<String, dynamic>> savedForms = prefs
+              .getStringList('forms')
+              ?.map((e) => jsonDecode(e))
+              .cast<Map<String, dynamic>>()
+              .toList() ??
+          [];
+
+      Map<String, String> stringKeyAnswers =
+          answers.map((key, value) => MapEntry(key.toString(), value));
+      Map<String, dynamic> form = {
+        'type': formQuestion,
+        'form': typeQuestion,
+        'answers': stringKeyAnswers,
+      };
+
+      savedForms.add(form);
+      await prefs.setStringList(
+        'forms',
+        savedForms.map((e) => jsonEncode(e)).toList(),
+      );
+
+      return const Right({'message': 'Dados salvos offline!'});
+    } catch (e) {
+      return Left(
+        QuestionException(
+          'Houve um erro ao salvar os dados offline. Tente novamente.',
         ),
       );
     }

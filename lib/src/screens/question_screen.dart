@@ -38,7 +38,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         if (state.status == QuestionStatus.success) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text("Dados enviados com sucesso!"),
+              content: Text("Respostas enviadas com sucesso!"),
               backgroundColor: Colors.green,
             ),
           );
