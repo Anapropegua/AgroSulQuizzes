@@ -8,12 +8,13 @@ abstract class QuestionService {
     required String formQuestion,
   });
 
-  Future<Either<QuestionException, Map<String, dynamic>>> submitAnswersOffline();
+  Future<Either<QuestionException, Map<String, dynamic>>>
+      submitAnswersOffline();
 
-Future<Either<QuestionException, Map<String, dynamic>>> storageAnswersOffline({
+  Future<Either<QuestionException, Map<String, dynamic>>>
+      storageAnswersOffline({
     required Map<int, String> answers,
     required String typeQuestion,
     required String formQuestion,
   });
-
 }

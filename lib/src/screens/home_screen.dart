@@ -1,14 +1,13 @@
 import 'package:feedback/src/core/inject.dart';
 import 'package:feedback/src/services/service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:feedback/src/core/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:feedback/src/routes/router.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,26 +18,27 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions:  [
+        actions: [
           IconButton(
             onPressed: () async {
-                  final result =
-                      await getIt<QuestionService>().submitAnswersOffline();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        result.fold(
-                          (l) => l.message,
-                          (r) => r['message'],
-                        ),
-                      ),
+              final result =
+                  await getIt<QuestionService>().submitAnswersOffline();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    result.fold(
+                      (l) => l.message,
+                      (r) => r['message'],
                     ),
-                  );
-                },
-            icon:  const Icon(Icons.sync),
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(Icons.sync),
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.primary),
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(theme.colorScheme.primary),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
