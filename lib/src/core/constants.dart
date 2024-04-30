@@ -17,22 +17,22 @@ const List<QuestionEntity> participantQuestions = [
     questionNumber: 2,
     question: 'Como você avaliaria o credenciamento do evento?',
     alternatives: [
-      "Extremamente negativo",
-      "Negativo",
-      "Neutro",
-      "Positivo",
-      "Extremamente positivo"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
     questionNumber: 3,
     question: 'Como você avaliaria o site do evento?',
     alternatives: [
-      "Extremamente negativo",
-      "Negativo",
-      "Neutro",
-      "Positivo",
-      "Extremamente positivo"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
@@ -50,55 +50,55 @@ const List<QuestionEntity> participantQuestions = [
     questionNumber: 5,
     question: 'Como você avaliaria os minicursos?',
     alternatives: [
-      "Extremamente negativos",
-      "Negativos",
-      "Neutros",
-      "Positivos",
-      "Extremamente positivos"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
     questionNumber: 6,
     question: 'Como você avaliaria as oficinas?',
     alternatives: [
-      "Extremamente negativas",
-      "Negativas",
-      "Neutras",
-      "Positivas",
-      "Extremamente positivas"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
     questionNumber: 7,
     question: 'Como você avaliaria as mesas redondas?',
     alternatives: [
-      "Extremamente negativas",
-      "Negativas",
-      "Neutras",
-      "Positivas",
-      "Extremamente positivas"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
     questionNumber: 8,
     question: 'Como você avaliaria as palestras?',
     alternatives: [
-      "Extremamente negativas",
-      "Negativas",
-      "Neutras",
-      "Positivas",
-      "Extremamente positivas"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
     questionNumber: 9,
     question: 'Como você avaliaria os seminários temáticos?',
     alternatives: [
-      "Extremamente negativos",
-      "Negativos",
-      "Neutros",
-      "Positivos",
-      "Extremamente positivos"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
@@ -127,11 +127,11 @@ const List<QuestionEntity> participantQuestions = [
     questionNumber: 12,
     question: 'Como você avaliaria as atrações culturais?',
     alternatives: [
-      "Extremamente negativas",
-      "Negativas",
-      "Neutras",
-      "Positivas",
-      "Extremamente positivas"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
@@ -149,23 +149,22 @@ const List<QuestionEntity> participantQuestions = [
     questionNumber: 14,
     question: 'Como você avaliaria os palestrantes?',
     alternatives: [
-      "Extremamente negativos",
-      "Negativos",
-      "Neutros",
-      "Positivos",
-      "Extremamente positivos"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
     questionNumber: 15,
-    question:
-        'Como você avaliaria o funcionamento das dependências (banheiros, bebedouros, salas, etc)?',
+    question: 'Como você avaliaria o funcionamento das dependências (banheiros, bebedouros, salas, etc)?',
     alternatives: [
-      "Extremamente negativo",
-      "Negativo",
-      "Neutro",
-      "Positivo",
-      "Extremamente positivo"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
@@ -183,11 +182,11 @@ const List<QuestionEntity> participantQuestions = [
     questionNumber: 17,
     question: 'Como você avaliaria o atendimento da saúde?',
     alternatives: [
-      "Extremamente negativo",
-      "Negativo",
-      "Neutro",
-      "Positivo",
-      "Extremamente positivo"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
@@ -217,8 +216,7 @@ const List<QuestionEntity> participantQuestions = [
   ),
   QuestionEntity(
     questionNumber: 24,
-    question:
-        'Você tem sugestões para tornar a próxima edição ainda mais atraente?',
+    question: 'Você tem sugestões para tornar a próxima edição ainda mais atraente?',
   ),
   QuestionEntity(
     questionNumber: 25,
@@ -237,53 +235,60 @@ const List<QuestionEntity> participantOpenEndedQuestions = [];
 const List<QuestionEntity> farmerQuestions = [
   QuestionEntity(
     questionNumber: 1,
-    question: 'Como foram suas vendas durante o evento?',
-    alternatives: ["Muito ruins", "Ruins", "Neutras", "Boas", "Muito boas"],
+    question: 'Como você avaliaria sua experiência com vendas durante o evento?',
+    alternatives: [
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
+    ],
   ),
   QuestionEntity(
     questionNumber: 2,
-    question: 'O espaço fornecido para exposição atendeu às suas expectativas?',
+    question: 'Como você avaliaria sua experiência com o espaço fornecido para exposição ?',
     alternatives: [
-      "Discordo totalmente",
-      "Discordo",
-      "Neutro",
-      "Concordo",
-      "Concordo totalmente"
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
     ],
   ),
   QuestionEntity(
     questionNumber: 3,
     question: 'Houve um interesse significativo pelos seus produtos?',
     alternatives: [
-      "Discordo totalmente",
-      "Discordo",
-      "Neutro",
-      "Concordo",
-      "Concordo totalmente"
+      "Sim",
+      "Não",
     ],
   ),
   QuestionEntity(
     questionNumber: 4,
-    question:
-        'O evento proporcionou oportunidades de trocas de experiências benéficas para você?',
+    question: 'O evento proporcionou oportunidades de trocas de experiências benéficas para você?',
     alternatives: [
-      "Discordo totalmente",
-      "Discordo",
-      "Neutro",
-      "Concordo",
-      "Concordo totalmente"
+      "Sim",
+      "Não",
     ],
   ),
   QuestionEntity(
     questionNumber: 5,
     question: 'Você fez novos contatos comerciais durante a feira?',
-    alternatives: ["Não", "Poucos", "Alguns", "Muitos", "Muitíssimos"],
+    alternatives: [
+      "Sim",
+      "Não",
+    ],
   ),
   QuestionEntity(
     questionNumber: 6,
-    question:
-        'Como você avalia a logística do evento em relação aos produtores?',
-    alternatives: ["Muito ruim", "Ruim", "Neutro", "Bom", "Muito bom"],
+    question: 'Como você avalia a logística do evento em relação aos produtores?',
+    alternatives: [
+      "Extremamente negativa",
+      "Negativa",
+      "Neutra",
+      "Positiva",
+      "Extremamente positiva"
+    ],
   ),
   QuestionEntity(
     questionNumber: 7,
@@ -292,13 +297,11 @@ const List<QuestionEntity> farmerQuestions = [
   ),
   QuestionEntity(
     questionNumber: 8,
-    question:
-        'Que tipo de apoio adicional você gostaria de ver em futuras edições?',
+    question: 'Que tipo de apoio adicional você gostaria de ver em futuras edições?',
   ),
   QuestionEntity(
     questionNumber: 9,
-    question:
-        'Alguma sugestão específica para melhorar a participação dos produtores?',
+    question: 'Alguma sugestão específica para melhorar a participação dos produtores?',
   ),
   QuestionEntity(
     questionNumber: 10,
