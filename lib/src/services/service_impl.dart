@@ -23,15 +23,23 @@ class QuestionServiceImpl implements QuestionService {
       Map<String, String> stringKeyAnswers =
           answers.map((key, value) => MapEntry(key.toString(), value));
 
-      String operationsDoc = """
-        mutation answer(\$type: String = "$formQuestion", \$form: String = "$typeQuestion", \$answers: json = "$stringKeyAnswers") {
-          insert_answer(objects: {type: \$type, form: \$form, answers: \$answers}) {
-            affected_rows
-          }
+      var mutation = r'''
+      mutation answer($type: String, $form: String, $answers: json) {
+        insert_answer(objects: {type: $type, form: $form, answers: $answers}) {
+          affected_rows
         }
-      """;
+      }
+      ''';
 
-      await hasuraConnect.mutation(operationsDoc);
+      var operationsDoc = await hasuraConnect.mutation(
+        mutation,
+        variables: {
+          'type': typeQuestion,
+          'form': formQuestion,
+          'answers': stringKeyAnswers,
+        },
+      );
+
       return const Right({'message': 'Dados enviados com sucesso!'});
     } catch (e) {
       return Left(
@@ -43,7 +51,8 @@ class QuestionServiceImpl implements QuestionService {
   }
 
   @override
-  Future<Either<QuestionException, Map<String, dynamic>>> submitAnswersOffline() async {
+  Future<Either<QuestionException, Map<String, dynamic>>>
+      submitAnswersOffline() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,15 +67,22 @@ class QuestionServiceImpl implements QuestionService {
         savedForms.isNotEmpty) {
       for (var form in savedForms) {
         try {
-          String operationsDoc = """
-            mutation answer(\$type: String = "${form['form']}", \$form: String = "${form['type']}", \$answers: json = "${form['answers']}") {
-              insert_answer(objects: {type: \$type, form: \$form, answers: \$answers}) {
-                affected_rows
-              }
+          var mutation = r'''
+          mutation answer($type: String, $form: String, $answers: json) {
+            insert_answer(objects: {type: $type, form: $form, answers: $answers}) {
+              affected_rows
             }
-          """;
+          }
+          ''';
 
-          await hasuraConnect.mutation(operationsDoc);
+          var operationsDoc = await hasuraConnect.mutation(
+            mutation,
+            variables: {
+              'type': form['type'],
+              'form': form['form'],
+              'answers': form['answers'],
+            },
+          );
         } catch (e) {
           return Left(
             QuestionException(
@@ -92,7 +108,8 @@ class QuestionServiceImpl implements QuestionService {
   }
 
   @override
-  Future<Either<QuestionException, Map<String, dynamic>>> storageAnswersOffline({
+  Future<Either<QuestionException, Map<String, dynamic>>>
+      storageAnswersOffline({
     required Map<int, String> answers,
     required String typeQuestion,
     required String formQuestion,

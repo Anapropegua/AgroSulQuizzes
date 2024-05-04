@@ -74,13 +74,13 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
     var connectivityResult = await (Connectivity().checkConnectivity());
 
     if (connectivityResult == ConnectivityResult.none) {
-      var respose = await questionService.storageAnswersOffline(
+      var response = await questionService.storageAnswersOffline(
         answers: currentState.answers,
         typeQuestion: questionType.toString(),
         formQuestion: question.toString(),
       );
 
-      respose.fold(
+      response.fold(
             (error) =>
             emit(
               currentState.copyWith(
@@ -93,13 +93,13 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
       );
       return;
     } else {
-      var respose = await questionService.submitAnswers(
+      var response = await questionService.submitAnswers(
         answers: currentState.answers,
         typeQuestion: questionType.toString(),
         formQuestion: question.toString(),
       );
 
-      respose.fold(
+      response.fold(
             (error) =>
             emit(
               currentState.copyWith(
