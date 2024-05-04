@@ -126,8 +126,8 @@ class QuestionServiceImpl implements QuestionService {
       Map<String, String> stringKeyAnswers =
           answers.map((key, value) => MapEntry(key.toString(), value));
       Map<String, dynamic> form = {
-        'type': formQuestion,
-        'form': typeQuestion,
+        'type': typeQuestion,
+        'form': formQuestion,
         'answers': stringKeyAnswers,
       };
 
